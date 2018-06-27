@@ -1,5 +1,6 @@
 <?php ?>
-<nav class="navbar navbar-default navbar-fixed-top">
+<!--<nav class="navbar navbar-default navbar-fixed-top">-->
+<nav class="navbar navbar-default navbar-fluid">
 <!--<nav class="navbar navbar-expand-lg navbar-dark bg-primary navbar-fixed-top">-->
     <div class="container">
         <div class="navbar-header">

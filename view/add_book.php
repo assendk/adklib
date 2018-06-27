@@ -18,37 +18,69 @@ if(isset($_REQUEST['save']))
     $isbn=$_REQUEST['isbn'];
     $description=$_REQUEST['description'];
     $year= $_REQUEST['year'];
-//    $year= $_REQUEST['year'];
+
+//    $book_pic= $_REQUEST['book_pic'];
+    $imgFile = $_FILES['book_pic']['name'];
+    $tmp_dir = $_FILES['book_pic']['tmp_name'];
+    $imgSize = $_FILES['book_pic']['size'];
 
     $stmt=$book->list_books("select * from books where book_name=:name");
-
     $stmt->execute(array(":name"=>$book_name));
     $checkrow=$stmt->fetch(PDO::FETCH_ASSOC);
 
-    if($stmt->rowCount() > 0)
-    {
-
-        echo "<script>alert('Book Name is already exists please try other name')
-		window.location.href=add_book.php</script>";
-    }
-    else{
-        if($book->library($book_name,$isbn,$description,$year))
+    if($imgFile) {
+        $upload_dir = "../view/book_images/"; // upload directory
+        $imgExt = strtolower(pathinfo($imgFile,PATHINFO_EXTENSION)); // get image extension
+        $valid_extensions = array('jpeg', 'jpg', 'png', 'gif'); // valid extensions
+        $book_pic = rand(1000,1000000)."-".$book_name.".".$imgExt;
+        if(in_array($imgExt, $valid_extensions))
         {
-            echo "<script>alert('Book added successfuly')
-			window.location.href='index.php'</script>";
+            if($imgSize < 5000000)
+            {
+                move_uploaded_file($tmp_dir,$upload_dir.$book_pic);
+//                unlink($upload_dir.$checkrow['book_pic']);
+            }
+            else
+            {
+                $errMSG = "Sorry, your file is too large it should be less then 5MB";
+            }
         }
         else
         {
-            echo "<script>alert('Book does not added please try again')
-			window.location.href='index.php'</script>";
+            $errMSG = "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
         }
     }
+    else
+    {
+        // if no image selected the old image remain as it is.
+        $book_pic = $checkrow['book_pic']; // old image from database
+    }
+
+
+    if($stmt->rowCount() > 0) {
+        echo "<script>alert('Book Name is already exists please try other name')
+		window.location.href=add_book.php</script>";
+    }
+    else {
+        if($book->library($book_name,$isbn,$description,$year,$book_pic))
+        {
+//            echo "<script>alert('Book added successfuly')
+//			window.location.href='index.php'</script>";
+        }
+        else
+        {
+//            echo "<script>alert('Book does not added please try again')
+//			window.location.href='index.php'</script>";
+        }
+    }
+
+
 }
 ?>
 
 
 <!-- Special version of Bootstrap that only affects content wrapped in .bootstrap-iso -->
-<link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css" />
+<!--<link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css" />-->
 
 <!--Font Awesome (added because you use icons in your prepend/append)-->
 <!--<link rel="stylesheet" href="https://formden.com/static/cdn/font-awesome/4.4.0/css/font-awesome.min.css" />-->
@@ -65,7 +97,7 @@ if(isset($_REQUEST['save']))
         <div class="row">
             <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
 
-                <form method="post">
+                <form method="post" enctype="multipart/form-data">
 
 
                     <div class="form-group ">
@@ -110,7 +142,6 @@ if(isset($_REQUEST['save']))
                     </div>
 
                     <div class="form-group ">
-
                         <div class="input-group">
                             <div class="input-group-addon">
                                 Description
@@ -122,6 +153,21 @@ if(isset($_REQUEST['save']))
                             </div>
                         </div>
                     </div>
+<!--                    <div class="form-group ">-->
+<!--                        <div class="input-group">-->
+<!--                            <div class="input-group-addon">-->
+<!--                                Book cover:-->
+<!--                            </div>-->
+<!--                            <div class="input-group-addon">-->
+<!--                                <i class="fa fa-money">-->
+<!--                                </i>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+                    <div>
+                        <input class="" id="book_pic" name="book_pic" placeholder="Enter Description" type="file" accept="image/*"  required />
+                    </div>
+                    <br>
 
                     <center>
                         <div class="form-group">

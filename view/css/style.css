@@ -25,7 +25,7 @@ body{
 	font-weight:lighter;
 }
 
-.signin-form {box-shadow: 2px 2px 2px #000;}
+.form-signin {box-shadow: 0px 2px 8px #000;}
 .form-signin .form-signin-heading{
     color:#00A2D1;
 }

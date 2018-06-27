@@ -24,19 +24,20 @@ class Book
 
     //function for Insert record
 
-    public function library($book_name,$isbn,$description,$year)
+    public function library($book_name,$isbn,$description,$year,$book_pic)
     {
         try
         {
             $stmt= $this->conn->prepare("insert into books(book_name,
-								isbn,description,year)values(:book_name,
-								:isbn, :description, :year) ");
+								isbn,description,year,book_pic)values(:book_name,
+								:isbn, :description, :year, :book_pic) ");
 
 
             $stmt->bindparam(":book_name",$book_name);
             $stmt->bindparam(":isbn",$isbn);
             $stmt->bindparam(":description",$description);
             $stmt->bindparam(":year",$year);
+            $stmt->bindparam(":book_pic",$book_pic);
             $stmt->execute();
             return $stmt;
 
@@ -82,20 +83,21 @@ class Book
 
     //function for Update record
 
-    public function update($editId,$book_name,$isbn,$description,$year)
+    public function update($editId,$book_name,$isbn,$description,$year,$book_pic)
     {
         try
         {
 
             $stmt=$this->conn->prepare("update books set 
 										book_name=:book_name, isbn=:isbn, 
-										description=:description, year=:year where id=:editId");
+										description=:description, year=:year, book_pic=:book_pic where id=:editId");
 
 
             $stmt->bindparam(":book_name",$book_name);
             $stmt->bindparam(":isbn",$isbn);
             $stmt->bindparam(":description",$description);
             $stmt->bindparam(":year",$year);
+            $stmt->bindparam(":book_pic",$book_pic);
             $stmt->bindparam(":editId",$editId);
             $stmt->execute();
             return $stmt;
@@ -108,5 +110,3 @@ class Book
     }
 
 }
-
-?>

@@ -22,4 +22,3 @@
     <div class="container">
         <?php include "inc/nav.php"; ?>
     </div>
-
