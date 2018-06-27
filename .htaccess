@@ -1,0 +1,12 @@
+Options -Indexes
+RewriteEngine On
+RewriteBase /
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{THE_REQUEST} /view/([^\s?]*) [NC]
+RewriteRule ^ %1 [L,NE,R=302]
+
+RewriteRule ^((?!view/).*)$ view/$1 [L,NC]
+
+AddType application/x-httpd-php .php .phtml
