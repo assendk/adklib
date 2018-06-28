@@ -17,7 +17,10 @@ if(isset($_GET['editId']))
     extract($book->getId($editId));
 }
 
-
+//var_dump($book_pic);
+if ($book_pic === NULL || $book_pic==""){
+    $book_pic = "default.jpg";
+}
 //Update record
 
 if(isset($_REQUEST['edit']))
@@ -29,16 +32,55 @@ if(isset($_REQUEST['edit']))
     $description=$_REQUEST['description'];
     $year= $_REQUEST['year'];
 
-    if($book->update($editId,$book_name,$isbn,$description,$year))
+    if($book_pic === NULL || $book_pic==""){
+        $book_pic = "default.jpg";
+    };
+
+    if(isset($_REQUEST['edit'])) {
+        $imgFile = $_FILES['book_pic']['name'];
+        $tmp_dir = $_FILES['book_pic']['tmp_name'];
+        $imgSize = $_FILES['book_pic']['size'];
+
+
+        if ($imgFile) {
+            $upload_dir = "../view/book_images/"; // upload directory
+            $imgExt = strtolower(pathinfo($imgFile, PATHINFO_EXTENSION)); // get image extension
+            $valid_extensions = array('jpeg', 'jpg', 'png', 'gif'); // valid extensions
+            $book_pic = rand(1000, 1000000) . "-" . $book_name . "." . $imgExt;
+            if (in_array($imgExt, $valid_extensions)) {
+                if ($imgSize < 5000000) {
+                    move_uploaded_file($tmp_dir, $upload_dir . $book_pic);
+//                unlink($upload_dir.$checkrow['book_pic']);
+                } else {
+                    $errMSG = "Sorry, your file is too large it should be less then 5MB";
+                }
+            } else {
+                $errMSG = "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+            }
+        }
+    }
+    else
+    {
+        // if no image selected the old image remain as it is.
+//        $book_pic = $_REQUEST['book_pic']; // old image from database
+        $book_pic = 'default.jpg';
+    }
+
+
+
+
+    if($book->update($editId,$book_name,$isbn,$description,$year,$book_pic))
     {
 //        echo "<script>alert('Book Updated successfuly')
 //			window.location.href=list_books.php/script>";
     }
     else{
-//        echo "<script>alert('Book does not Updated please try again')
-//			window.location.href=llist_books.phpscript>";
+        echo "<script>alert('Book does not Updated please try again')
+			window.location.href=llist_books.phpscript>";
 
     }
+
+
 
 }
 
@@ -46,7 +88,7 @@ if(isset($_REQUEST['edit']))
 //cancel button
 if(isset($_REQUEST['cancel']))
 {
-    header("location:list_books.php");
+    header("location:admin_list_books.php");
 }
 
 ?>
@@ -69,13 +111,14 @@ if(isset($_REQUEST['cancel']))
 <!-- HTML Form (wrapped in a .bootstrap-iso div) -->
 <div class="bootstrap-iso">
     <div class="container-fluid">
+    <div class="container">
 
-        <center> <h2 style="color:red"><strong> Update Book </strong></h2></center>
+        <h2 class="title"><strong> Update Book </strong></h2>
 
         <div class="row">
             <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
 
-                <form method="post">
+                <form method="post" enctype="multipart/form-data">
 
 
                     <input type="hidden" name="editId" value="<?php echo $editId ;?>" >
@@ -133,6 +176,21 @@ if(isset($_REQUEST['cancel']))
                                 Description
                             </div>
                             <input class="form-control" id="description" name="description" placeholder="Enter Description" type="text" value="<?php  echo $description;?>" required />
+                            <div class="input-group-addon">
+                                <i class="fa fa-money">
+                                </i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group ">
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                Description
+                            </div>
+                            <p><img src="book_images/<?php echo $book_pic; ?>" height="150" width="100" /></p>
+<!--                            <input class="form-control" id="book_pic" name="book_pic" placeholder="Enter Description" type="file" value="--><?php // echo $book_pic;?><!--" required />-->
+                            <input class="form-control" id="book_pic" name="book_pic" type="file"/>
                             <div class="input-group-addon">
                                 <i class="fa fa-money">
                                 </i>

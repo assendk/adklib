@@ -37,13 +37,10 @@ if(isset($_REQUEST['did']))
 ?>
 <div class="clearfix"></div>
 
-
 <!--<div class="container-fluid" style="margin-top:80px;">-->
-<div class="container" style="margin-top:80px;">
+<div class="container">
 
-    <p><br/></p>
-
-    <a href="add_book.php" class="btn btn-primary btn-lg">
+    <a href="add_book.php" class="btn btn-primary">
         + Add Book
     </a>
 
@@ -76,6 +73,7 @@ if(isset($_REQUEST['did']))
                     <td><?php echo $row['description'];?></td>
                     <td><?php echo $row['year'];?></td>
                     <td><?php echo date("d/m/Y H:i:s",strtotime($row['added_on']));?></td>
+                    <td><img height="40px" src="book_images/<?php echo $row['book_pic'];?>" alt=""></td>
                     <td>
                         <a class="btn btn-primary btn-flat" href="update_book.php?editId=<?php echo $row['id'];?>"><i class="fa fa-lg fa-plus">edit</i></a>
                         <a class="btn btn-warning btn-flat" onclick="return confirm('Are you sure?')" href="list_books.php?did=<?php echo $row['id'];?>"><i class="fa fa-lg fa-trash">delete</i></a></td>
