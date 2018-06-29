@@ -13,10 +13,7 @@ $book= new \model\Book();
 $stmt=$book->list_books("SELECT * FROM books");
 $stmt->execute();
 
-
-
 //delete book
-
 if(isset($_REQUEST['did']))
 {
     $id=$_REQUEST['did'];
@@ -58,6 +55,7 @@ if(isset($_REQUEST['did']))
                 <th>Description</th>
                 <th>Year</th>
                 <th>Added On</th>
+                <th>Cover</th>
                 <th>Update/Delete</th>
             </tr>
             </thead>

@@ -60,6 +60,12 @@ class Book
 
     }
 
+    public function editFavorites($sql)
+    {
+        $stmt=$this->conn->prepare($sql);
+        return $stmt;
+    }
+
     //function for Delete record
 
     public function delete_book($did)

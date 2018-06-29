@@ -10,15 +10,14 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="/">The Library</a>
+          <a class="navbar-brand" href="home.php">The Library</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
 <!--            <li class="active"><a href="http://www.codingcage.com/2015/04/php-login-and-registration-script-with.html">Back to Article</a></li>-->
-            <li><a href="list_books.php">List</a></li>
+<!--            <li><a href="list_books.php">List</a></li>-->
               <li><a href="admin_list_books.php">Admin list</a></li>
-              <li><a href="home.php">My Books</a></li>
-            <li><a href="http://www.codingcage.com/search/label/PHP">PHP</a></li>
+              <li><a href="my_books.php">My Books</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
 

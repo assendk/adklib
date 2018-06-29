@@ -1,19 +1,53 @@
 <?php
 
 require_once("../controller/session.php");
-
-require_once("../model/class.user.php");
-//	$auth_user = new USER();
-//
-//
-//	$user_id = $_SESSION['user_session'];
-//
-//	$stmt = $auth_user->runQuery("SELECT * FROM users WHERE user_id=:user_id");
-//	$stmt->execute(array(":user_id"=>$user_id));
-//
-//	$userRow=$stmt->fetch(PDO::FETCH_ASSOC);
+require_once("../model/class.book.php");
 require_once ("check.php");
-include_once "inc/head.php";
+
+include "inc/head.php";
+
+$book= new \model\Book();
+
+//list all books
+
+$stmt=$book->list_books("SELECT * FROM books");
+$stmt->execute();
+
+//delete book
+
+//if(isset($_REQUEST['did']))
+//{
+//    $id=$_REQUEST['did'];
+//
+//    if($book->delete_book($id))
+//    {
+////        echo "<script>alert('Record deleted successfully')
+////		window.location.href='list_books.php'</script>";
+//        header('location: list_books.php');
+//    }
+//    else
+//    {
+////        echo "<script>alert('Record does not deleted please try again')
+////        window.location.href='list_books.php'</script>";
+//        header('location: list_books.php?error=not_updated');
+//    }
+//}
+
+
+//require_once("../controller/session.php");
+//
+//require_once("../model/class.user.php");
+////	$auth_user = new USER();
+////
+////
+////	$user_id = $_SESSION['user_session'];
+////
+////	$stmt = $auth_user->runQuery("SELECT * FROM users WHERE user_id=:user_id");
+////	$stmt->execute(array(":user_id"=>$user_id));
+////
+////	$userRow=$stmt->fetch(PDO::FETCH_ASSOC);
+//require_once ("check.php");
+//include_once "inc/head.php";
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">

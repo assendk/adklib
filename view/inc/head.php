@@ -5,6 +5,7 @@
     <link href="../css/bootstrap.min.css" rel="stylesheet" media="screen">
     <link href="../css/bootstrap-theme.min.css" rel="stylesheet" media="screen">
     <script type="text/javascript" src="../js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="../js/favorites.js"></script>
     <link rel="stylesheet" href="css/style.css" type="text/css"  />
 
     <meta http-equiv="X-UA-Compatible" content="IE=edge">

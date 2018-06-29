@@ -56,3 +56,17 @@ h1{
 }
 
 .dropdown {margin-right: 20px;}
+.book-field {
+    border: 1px solid #d5d5d5;
+    list-style: none;
+}
+.book-header {
+    font-weight: 600;
+    border-bottom: #9d9d9d dotted 1px;
+    margin: 20px 0 0 0;
+}
+.book-info {
+    margin: 5px 0 0 0;
+    padding: 5px 0 0 0;
+    border-top: #9d9d9d dotted 1px;
+}
